@@ -25,7 +25,7 @@ export class AppController {
 
   @Get('products/:productId')
   getProduct(@Param('productId') productId: number) {
-    return `product ${productId}`;
+    return `product  ${productId}`;
   }
   @Get('categories/:id/product/:productId')
   getCategories(
