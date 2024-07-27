@@ -11,6 +11,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ProductsService } from 'src/services/products.service';
+import { ParseIntPipe } from '../common/parse-int/parse-int.pipe';
 
 @Controller('products')
 export class ProductsController {
@@ -31,10 +32,8 @@ export class ProductsController {
   }
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
-  getOne(@Param('productId') productId: number) {
-    //if (typeof productId === 'string') return 'lol xd';
-    //console.log(typeof productId);
-    return this.productService.findOne(+productId);
+  getOne(@Param('productId', ParseIntPipe) productId: number) {
+    return this.productService.findOne(productId);
   }
 
   @Get('products1')
@@ -50,11 +49,11 @@ export class ProductsController {
     return this.productService.create(params);
   }
   @Put(':id')
-  update(@Param('id') id: number, @Body() params: any) {
-    return this.productService.update(+id, params);
+  update(@Param('id', ParseIntPipe) id: number, @Body() params: any) {
+    return this.productService.update(id, params);
   }
   @Delete(':id')
-  delete(@Param('id') id: number) {
-    return this.productService.delete(+id);
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.productService.delete(id);
   }
 }
